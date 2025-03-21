@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:hemantenterprisesstaff/bottomnavigation/bottomnavigation.dart';
 import 'package:hemantenterprisesstaff/views/aboutUs.dart';
-import 'package:hemantenterprisesstaff/views/brands/brandDetails.dart';
 import 'package:hemantenterprisesstaff/views/brands/category.dart';
+import 'package:hemantenterprisesstaff/views/brands/model.dart';
 import 'package:hemantenterprisesstaff/views/authentication/createaccount.dart';
 import 'package:hemantenterprisesstaff/views/topbar/customerquotes.dart';
 import 'package:hemantenterprisesstaff/views/brands/home.dart';
@@ -13,7 +13,7 @@ import 'package:hemantenterprisesstaff/views/cart/quote.dart';
 import 'package:hemantenterprisesstaff/views/topbar/searchresult.dart';
 import 'package:hemantenterprisesstaff/views/splash/splashcontext.dart';
 import 'package:hemantenterprisesstaff/views/splash/splashscreen.dart';
-import 'package:hemantenterprisesstaff/views/brands/subcategory.dart';
+import 'package:hemantenterprisesstaff/views/brands/product.dart';
 import 'package:hemantenterprisesstaff/views/cart/thankyou.dart';
 import 'package:hemantenterprisesstaff/views/topbar/tollfree.dart';
 
@@ -65,15 +65,15 @@ class AppRoutes {
       ),
     GetPage(
       name: brandDetails, 
-      page: () => BrandDetailsScreen()
-      ),   
-    GetPage(
-      name: category, 
       page: () => CategoryScreen()
       ),   
     GetPage(
+      name: category, 
+      page: () => ModelScreen()
+      ),   
+    GetPage(
       name: subCategory, 
-      page: () => SubCategoryScreen()
+      page: () => ProductScreen()
       ),
     GetPage(
       name: listingPage, 
