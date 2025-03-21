@@ -879,6 +879,12 @@ class _QuoteScreenState extends State<QuoteScreen> {
                                   // Custom Elevated Button
                                   CustomElevatedButton(
                                     text: "Submit",
+                                    textStyle: GoogleFonts.instrumentSans(
+                                        color: Colorconstants.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
                                         Get.offNamed(AppRoutes.thankyou);

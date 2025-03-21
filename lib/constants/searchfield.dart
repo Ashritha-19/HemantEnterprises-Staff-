@@ -61,11 +61,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
-          offset: Offset(10, 50), // Adjust position of popup
+          offset: Offset(0, 50), // Adjust position of popup
           onSelected: (value) {
             if (value == 1) {
               Get.toNamed(AppRoutes.customerQuotes);
             } else if (value == 2) {
+              Get.toNamed(AppRoutes.tollFree); 
+            } else if (value == 3) {
               _showLogoutDialog(context);
             }
           },
@@ -75,13 +77,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 decoration: BoxDecoration(
-                  color: Color(0xFFFFF0CB),
+                  color: Color(0xFFD3E6FF),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Center(
                   child: Text(
                     "Customer Quotes",
-                    style: GoogleFonts.instrumentSans(fontSize: 14, fontWeight: FontWeight.w500, color: Colorconstants.primaryColor),
+                    style: GoogleFonts.instrumentSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colorconstants.primaryColor),
                   ),
                 ),
               ),
@@ -91,13 +96,35 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 decoration: BoxDecoration(
-                  color: Color(0xFFFFF0CB),
+                  color: Color(0xFFD3E6FF),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: Center(
+                  child: Text(
+                    "TollFree Numbers",
+                    style: GoogleFonts.instrumentSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colorconstants.primaryColor),
+                  ),
+                ),
+              ),
+            ),
+            PopupMenuItem(
+              value: 3,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                  color: Color(0xFFD3E6FF),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: Center(
                   child: Text(
                     "Logout",
-                    style: GoogleFonts.instrumentSans(fontSize: 14, fontWeight: FontWeight.w500, color: Colorconstants.primaryColor),
+                    style: GoogleFonts.instrumentSans(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colorconstants.primaryColor),
                   ),
                 ),
               ),
@@ -115,12 +142,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title: Text(
           "Logout",
           style: GoogleFonts.instrumentSans(
-              color: Colorconstants.darkBlack, fontSize: 16, fontWeight: FontWeight.bold),
+              color: Colorconstants.darkBlack,
+              fontSize: 16,
+              fontWeight: FontWeight.bold),
         ),
         content: Text(
           "Are you sure you want to logout?",
           style: GoogleFonts.instrumentSans(
-              color: Colorconstants.darkBlack, fontWeight: FontWeight.w500, fontSize: 12),
+              color: Colorconstants.darkBlack,
+              fontWeight: FontWeight.w500,
+              fontSize: 12),
         ),
         actions: [
           TextButton(
@@ -130,7 +161,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               "Logout",
               style: GoogleFonts.instrumentSans(
-                  color: Colorconstants.primaryColor, fontWeight: FontWeight.w500, fontSize: 14),
+                  color: Colorconstants.primaryColor,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14),
             ),
           ),
           TextButton(
@@ -140,7 +173,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               "Cancel",
               style: GoogleFonts.instrumentSans(
-                  color: Colorconstants.darkBlack, fontWeight: FontWeight.w500, fontSize: 12),
+                  color: Colorconstants.darkBlack,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12),
             ),
           ),
         ],

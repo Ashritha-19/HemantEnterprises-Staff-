@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages, avoid_print
+// ignore_for_file: depend_on_referenced_packages, avoid_print, deprecated_member_use
 
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -108,7 +108,7 @@ class _CustomerQuotesScreenState extends State<CustomerQuotesScreen> {
           ),
           Column(
             children: [
-              // Search Bar
+             
               CustomAppBar(
                 hintText: "Search",
                 onSearchTap: () {
@@ -116,61 +116,111 @@ class _CustomerQuotesScreenState extends State<CustomerQuotesScreen> {
                 },
               ),
 
+          /*    Container(
+                    margin:
+                        EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Colorconstants.brandLogoCircle),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Search by Phone Number",
+                        hintStyle: GoogleFonts.instrumentSans(
+                          color: Colorconstants.brandLogoCircle,
+                          fontSize: 12, 
+                        ),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 8), 
+                      ),
+                    ),
+                  ), */
+
               SizedBox(
                 height: 2.h,
               ),
 
-              // Year Dropdown with Border Radius
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        'Customer Quotes',
-                        style: GoogleFonts.instrumentSans(
-                          color: Colorconstants.darkBlack,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                              color: Colorconstants.primaryColor, width: 1),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: selectedYear,
-                            items: years.map((year) {
-                              return DropdownMenuItem(
-                                value: year,
-                                child: Text(year,
-                                    style: GoogleFonts.instrumentSans(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedYear = newValue!;
-                              });
-                            },
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
+                        Text(
+                          'Customer Quotes',
+                          style: GoogleFonts.instrumentSans(
+                            color: Colorconstants.darkBlack,
+                            fontSize: 14.sp,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                      Spacer(),
+                       Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                                color: Colorconstants.primaryColor, width: 1),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: selectedYear,
+                              items: years.map((year) {
+                                return DropdownMenuItem(
+                                  value: year,
+                                  child: Text(year,
+                                      style: GoogleFonts.instrumentSans(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                      )),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedYear = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
+              // Column(
+              //   children: [
+              //     Container(
+              //       margin:
+              //           EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              //       decoration: BoxDecoration(
+              //         border:
+              //             Border.all(color: Colorconstants.brandLogoCircle),
+              //         borderRadius: BorderRadius.circular(8),
+              //       ),
+              //       child: TextField(
+              //         decoration: InputDecoration(
+              //           hintText: "Search by Phone Number",
+              //           hintStyle: GoogleFonts.instrumentSans(
+              //             color: Colorconstants.brandLogoCircle,
+              //             fontSize: 12, 
+              //           ),
+              //           border: InputBorder.none,
+              //           contentPadding: EdgeInsets.symmetric(
+              //               vertical: 8,
+              //               horizontal: 8), 
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // ),             
 
               SizedBox(
                 height: 2.h,

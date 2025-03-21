@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   style: GoogleFonts.instrumentSans(
                                     fontSize: 20.sp, // Responsive font size
                                     fontWeight: FontWeight.bold,
-                                    color: Colorconstants.primaryColor,
+                                    color: Colorconstants.white,
                                   ),
                                 ),
                                 SizedBox(height: 7.h), // Responsive height
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     'Phone Number',
                                     style: GoogleFonts.instrumentSans(
                                       fontSize: 14.sp, // Responsive font size
-                                      color: Colorconstants.primaryColor,
+                                      color: Colorconstants.white,
                                     ),
                                   ),
                                 ),

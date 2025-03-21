@@ -1,20 +1,21 @@
 import 'package:get/get.dart';
 import 'package:hemantenterprisesstaff/bottomnavigation/bottomnavigation.dart';
 import 'package:hemantenterprisesstaff/views/aboutUs.dart';
-import 'package:hemantenterprisesstaff/views/brandDetails.dart';
-import 'package:hemantenterprisesstaff/views/category.dart';
-import 'package:hemantenterprisesstaff/views/createaccount.dart';
-import 'package:hemantenterprisesstaff/views/customerquotes.dart';
-import 'package:hemantenterprisesstaff/views/home.dart';
-import 'package:hemantenterprisesstaff/views/listingpage.dart';
-import 'package:hemantenterprisesstaff/views/login.dart';
-import 'package:hemantenterprisesstaff/views/otp.dart';
-import 'package:hemantenterprisesstaff/views/quote.dart';
-import 'package:hemantenterprisesstaff/views/searchresult.dart';
-import 'package:hemantenterprisesstaff/views/splashcontext.dart';
-import 'package:hemantenterprisesstaff/views/splashscreen.dart';
-import 'package:hemantenterprisesstaff/views/subcategory.dart';
-import 'package:hemantenterprisesstaff/views/thankyou.dart';
+import 'package:hemantenterprisesstaff/views/brands/brandDetails.dart';
+import 'package:hemantenterprisesstaff/views/brands/category.dart';
+import 'package:hemantenterprisesstaff/views/authentication/createaccount.dart';
+import 'package:hemantenterprisesstaff/views/topbar/customerquotes.dart';
+import 'package:hemantenterprisesstaff/views/brands/home.dart';
+import 'package:hemantenterprisesstaff/views/brands/listingpage.dart';
+import 'package:hemantenterprisesstaff/views/authentication/login.dart';
+import 'package:hemantenterprisesstaff/views/authentication/otp.dart';
+import 'package:hemantenterprisesstaff/views/cart/quote.dart';
+import 'package:hemantenterprisesstaff/views/topbar/searchresult.dart';
+import 'package:hemantenterprisesstaff/views/splash/splashcontext.dart';
+import 'package:hemantenterprisesstaff/views/splash/splashscreen.dart';
+import 'package:hemantenterprisesstaff/views/brands/subcategory.dart';
+import 'package:hemantenterprisesstaff/views/cart/thankyou.dart';
+import 'package:hemantenterprisesstaff/views/topbar/tollfree.dart';
 
 
 
@@ -35,6 +36,7 @@ class AppRoutes {
   static const search = '/search';
   static const thankyou = '/thankyou';
   static const customerQuotes= '/customerQuotes';
+  static const tollFree = '/tollFree'; 
 
   static List<GetPage> routes = [
     GetPage(
@@ -100,6 +102,10 @@ class AppRoutes {
     GetPage(
       name: customerQuotes, 
       page: () => CustomerQuotesScreen()
+      ),
+    GetPage(
+      name: tollFree, 
+      page: () => Tollfreenumbers()
       ),
 
   ];

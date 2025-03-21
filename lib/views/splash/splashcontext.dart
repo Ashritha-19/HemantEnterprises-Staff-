@@ -8,7 +8,6 @@ import 'package:hemantenterprisesstaff/constants/colorconstants.dart';
 import 'package:hemantenterprisesstaff/constants/imageconstants.dart';
 import 'package:hemantenterprisesstaff/routes/app_routes.dart';
 
-
 class SplashContext extends StatefulWidget {
   const SplashContext({super.key});
 
@@ -18,7 +17,7 @@ class SplashContext extends StatefulWidget {
 
 class _SplashContextState extends State<SplashContext> {
   int selectedIndex = -1;
-  final List<String> buttonTexts = ["Create Account", "Login", "Guest"];
+  final List<String> buttonTexts = ["Login", "Guest"];
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +40,18 @@ class _SplashContextState extends State<SplashContext> {
                   itemCount: buttonTexts.length,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 60),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 60),
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
                             selectedIndex = index;
                           });
                           index == 0
-                              ? Get.offNamed(AppRoutes.createAccount)
-                              : index == 1
                               ? Get.offNamed(AppRoutes.login)
-                              : index == 2
-                             ? Get.offNamed(AppRoutes.bottomNavigation)
-                              : Container();
+                              : index == 1
+                                  ? Get.offNamed(AppRoutes.bottomNavigation)
+                                  : Container();
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(
@@ -61,16 +59,14 @@ class _SplashContextState extends State<SplashContext> {
                             horizontal: 40,
                           ),
                           decoration: BoxDecoration(
-                            color:
-                                selectedIndex == index
-                                    ? Colorconstants.primaryColor
-                                    : Colors.white,
+                            color: selectedIndex == index
+                                ? Colorconstants.primaryColor
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(30),
                             border: Border.all(
-                              color:
-                                  selectedIndex == index
-                                      ? Colorconstants.secondaryColor
-                                      : Colors.black,
+                              color: selectedIndex == index
+                                  ? Colorconstants.secondaryColor
+                                  : Colors.black,
                               width: 2,
                             ),
                           ),
@@ -78,10 +74,9 @@ class _SplashContextState extends State<SplashContext> {
                           child: Text(
                             buttonTexts[index],
                             style: GoogleFonts.instrumentSans(
-                              color:
-                                  selectedIndex == index
-                                      ? Colors.white
-                                      : Colors.black,
+                              color: selectedIndex == index
+                                  ? Colors.white
+                                  : Colors.black,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.normal,
                             ),

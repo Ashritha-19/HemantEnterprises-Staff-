@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hemantenterprisesstaff/constants/colorconstants.dart';
 import 'package:hemantenterprisesstaff/constants/imageconstants.dart';
 import 'package:hemantenterprisesstaff/views/aboutUs.dart';
-import 'package:hemantenterprisesstaff/views/home.dart';
-import 'package:hemantenterprisesstaff/views/quote.dart';
+import 'package:hemantenterprisesstaff/views/brands/home.dart';
+import 'package:hemantenterprisesstaff/views/cart/quote.dart';
 
 
 

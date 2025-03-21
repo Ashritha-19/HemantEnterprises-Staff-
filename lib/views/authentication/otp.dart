@@ -14,8 +14,6 @@ import 'package:hemantenterprisesstaff/models/elevatedbuttonmodel.dart';
 import 'package:hemantenterprisesstaff/routes/app_routes.dart';
 
 
-
-
 class VerificationCodeScreen extends StatefulWidget {
   const VerificationCodeScreen({super.key});
 
@@ -107,7 +105,6 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
 }
 
 
-
   @override
   Widget build(BuildContext context) {
     // Convert remaining time to minutes and seconds
@@ -140,7 +137,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         'Verification Code',
                         style: GoogleFonts.instrumentSans(
                           fontSize: 20.sp,
-                          color: Colorconstants.primaryColor,
+                          color: Colorconstants.white,
                         ),
                       ),
                       SizedBox(height: 2.h),
@@ -150,7 +147,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                         style: GoogleFonts.instrumentSans(
                           fontSize: 15.sp,
                           fontWeight: FontWeight.w400,
-                          color: Colorconstants.darkBlack,
+                          color: Colorconstants.white,
                         ),
                       ),
                       SizedBox(height: 5.h),
@@ -177,7 +174,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                             : "You can resend the code now",
                         style: GoogleFonts.instrumentSans(
                           fontSize: 16,
-                          color: Colorconstants.primaryColor,
+                          color: Colorconstants.white,
                         ),
                       ),
                       SizedBox(height: 20),
@@ -195,7 +192,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen> {
                           'Resend Code',
                           style: GoogleFonts.instrumentSans(
                             fontSize: 16.sp,
-                            color: _isResendEnabled ? Colorconstants.primaryColor : Colorconstants.brandLogoCircle,
+                            color: _isResendEnabled ? Colorconstants.white : Colorconstants.brandLogoCircle,
                             decoration: TextDecoration.underline,
                             decorationColor: Colorconstants.bottomNav,
                           ),

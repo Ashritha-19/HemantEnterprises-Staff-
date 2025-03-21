@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -192,7 +194,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
               SizedBox(height: 2.h),
               Expanded(
                 child: GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding:  EdgeInsets.symmetric(horizontal: 16.0),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
                     crossAxisSpacing: 20,
@@ -213,6 +215,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                             child: Image.asset(
                               product,
                               fit: BoxFit.contain,
+                              height: 120
                             ),
                           ),
                           const SizedBox(height: 8),

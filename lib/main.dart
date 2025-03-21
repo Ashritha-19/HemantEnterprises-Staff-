@@ -4,7 +4,7 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
 import 'package:hemantenterprisesstaff/firebase_options.dart';
 import 'package:hemantenterprisesstaff/routes/app_routes.dart';
-import 'package:hemantenterprisesstaff/views/splashscreen.dart';
+import 'package:hemantenterprisesstaff/views/splash/splashscreen.dart';
 
 
 void main() async{
