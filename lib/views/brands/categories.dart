@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print, deprecated_member_use, unnecessary_brace_in_string_interps
+// ignore_for_file: file_names, avoid_print, deprecated_member_use, unnecessary_brace_in_string_interps, use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -26,10 +26,10 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  String? brandid;
-  String? brandImg;
-  String? brandName;
-  String? brandDescription;
+  // String? brandid;
+  // String? brandImg;
+  // String? brandName;
+  // String? brandDescription;
 
   List<Allcategories> categories = [];
   CategoriesModel? categoryModel;
@@ -44,13 +44,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
 
-    setState(() {
-      brandid = Provider.of<BrandsProvider>(context, listen: false).brandId;
-      brandImg = Provider.of<BrandsProvider>(context, listen: false).brandImg;
-      brandName = Provider.of<BrandsProvider>(context, listen: false).brandName;
-      brandDescription = Provider.of<BrandsProvider>(context, listen: false).brandDescription;
-          
-    });
+    Provider.of<BrandsProvider>(context, listen: false);
+
+    // setState(() {
+    //   brandid = Provider.of<BrandsProvider>(context, listen: false).brandId;
+    //   brandImg = Provider.of<BrandsProvider>(context, listen: false).brandImg;
+    //   brandName = Provider.of<BrandsProvider>(context, listen: false).brandName;
+    //   brandDescription = Provider.of<BrandsProvider>(context, listen: false).brandDescription;
+
+    // });
     const String apiUrl = '${ApiConstants.baseUrl}${ApiConstants.catListUrl}';
 
     print('Fetching categories from: $apiUrl');
@@ -70,7 +72,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
 
-        // Parse response into model
         categoryModel = CategoriesModel.fromJson(responseData);
 
         setState(() {
@@ -87,10 +88,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
     }
   }
 
-  final String catImgUrl = ApiConstants.catImgBaseUrl;
+  // final String catImgUrl = ApiConstants.catImgBaseUrl;
 
   @override
   Widget build(BuildContext context) {
+    final brandProvider = Provider.of<BrandsProvider>(context);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -121,7 +123,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     child: Row(
                       children: [
-                        if (brandImg != null)
+                        if (brandProvider.brandImg != null)
                           Container(
                             decoration: BoxDecoration(
                               color: Colorconstants.white,
@@ -133,7 +135,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             ),
                             padding: const EdgeInsets.all(8.0),
                             child: Image.network(
-                              ApiConstants.brandImgBaseUrl + brandImg!,
+                              '${ApiConstants.brandImgBaseUrl}${brandProvider.brandImg}',
                               height: 30,
                               width: 30,
                               fit: BoxFit.contain,
@@ -141,7 +143,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           ),
                         const SizedBox(width: 10),
                         Text(
-                          brandName ?? "Brand",
+                          brandProvider.brandName ?? "Brand",
                           style: GoogleFonts.instrumentSans(
                             fontSize: 14.sp,
                             color: Colorconstants.darkBlack,
@@ -172,7 +174,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Column(
                     children: [
-                      Text(brandDescription ?? 'Brand Description',
+                      Text(
+                          brandProvider.brandDescription ?? 'Brand Description',
                           style: GoogleFonts.instrumentSans(
                               color: Colorconstants.darkBlack, fontSize: 12.sp))
                     ],
@@ -201,12 +204,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             return GestureDetector(
                               onTap: () {
                                 final categoriesProvider =
-                                    Provider.of<Categoriesprovider>(context,listen: false);                                       
+                                    Provider.of<Categoriesprovider>(context,
+                                        listen: false);
                                 categoriesProvider.setCatDetails(
-                                  allcategories.catName.toString(), 
-                                  allcategories.id.toString(), 
-                                  brandImg ?? '',
-                             
+                                  allcategories.id.toString(),
+                                  '${ApiConstants.brandImgBaseUrl}${brandProvider.brandImg}', 
+                                  allcategories.catName ?? "", 
                                 );
 
                                 Get.toNamed(AppRoutes.subCategory);

@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -26,9 +26,9 @@ class SubCategoryScreen extends StatefulWidget {
 }
 
 class _SubCategoryScreenState extends State<SubCategoryScreen> {
-  String? catId;
-  String? brandImg;
-  String? catName;
+  // String? catId;
+  // String? brandImg;
+  // String? catName;
 
   List<SubCat> subCategories = [];
   SubCategoryModel? subCategoryModel;
@@ -42,14 +42,15 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
   Future<void> fetchSubCategoryData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
+    final catId = Provider.of<Categoriesprovider>(context, listen: false).catId;
 
-    setState(() {
-      catId = Provider.of<Categoriesprovider>(context, listen: false).catId;
-      brandImg =
-          Provider.of<Categoriesprovider>(context, listen: false).brandImg;
-      catName = Provider.of<Categoriesprovider>(context, listen: false).catName;
-    });
-    const String apiUrl = '${ApiConstants.baseUrl}${ApiConstants.catListUrl}';
+    if (catId == null) {
+      Fluttertoast.showToast(msg: "Category ID is missing");
+      print('Category ID is null');
+      return;
+    }
+
+    final String apiUrl = '${ApiConstants.baseUrl}${ApiConstants.subcatlist}';
 
     print('Fetching categories from: $apiUrl');
     print('Access Token: $token');
@@ -67,16 +68,13 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
-
         subCategoryModel = SubCategoryModel.fromJson(responseData);
 
         setState(() {
           subCategories = subCategoryModel?.subCat ?? [];
-          print('SubCategories List: $subCategories');
         });
       } else {
         Fluttertoast.showToast(msg: "Data not found");
-        print('Error: Data not found. Status Code: ${response.statusCode}');
       }
     } catch (e) {
       Fluttertoast.showToast(msg: "Error: ${e.toString()}");
@@ -86,7 +84,8 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final brandProvider = Provider.of<BrandsProvider>(context);
+    final catProvider = Provider.of<Categoriesprovider>(context);
+    final brandsProvider = Provider.of<BrandsProvider>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -117,10 +116,11 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
                     child: Row(
                       children: [
-                        if (brandProvider.brandImg!= null)
+                        if (brandsProvider.brandImg != null)
                           Container(
                             decoration: BoxDecoration(
                               color: Colorconstants.white,
@@ -131,21 +131,22 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                               ),
                             ),
                             padding: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                             '${ApiConstants.brandImgBaseUrl}${brandProvider.brandImg}',
+                            child: Image.network(
+                              '${ApiConstants.brandImgBaseUrl}${brandsProvider.brandImg}',
                               height: 30,
                               width: 30,
                               fit: BoxFit.contain,
                             ),
                           ),
                         const SizedBox(width: 8),
-                        Text(
-                          catName ??
-                              "CategoryName", 
-                          style: GoogleFonts.instrumentSans(
-                            fontSize: 14,
-                            color: Colorconstants.darkBlack,
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            catProvider.catName ?? "CategoryName",
+                            style: GoogleFonts.instrumentSans(
+                              fontSize: 14,
+                              color: Colorconstants.darkBlack,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Spacer(),
@@ -193,11 +194,6 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                               onTap: () {
                                 Get.toNamed(
                                   AppRoutes.productDetail,
-                                  // arguments: {
-                                  //   'brandImage': brandImagePath,
-                                  //   'product': productName,
-                                  //   'category':categoryName,
-                                  // },
                                 );
                               },
                               child: Column(
