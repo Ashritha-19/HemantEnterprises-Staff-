@@ -1,17 +1,20 @@
-// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print
+// ignore_for_file: unnecessary_brace_in_string_interps, avoid_print, unused_local_variable, use_build_context_synchronously
 
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:hemantenterprisesstaff/constants/apiservices.dart';
+import 'package:hemantenterprisesstaff/constants/apiconstants.dart';
 import 'package:hemantenterprisesstaff/constants/colorconstants.dart';
 import 'package:hemantenterprisesstaff/constants/imageconstants.dart';
 import 'package:hemantenterprisesstaff/constants/searchfield.dart';
+import 'package:hemantenterprisesstaff/models/brandsLIst.dart';
+import 'package:hemantenterprisesstaff/providers/brandlistprovider.dart';
 import 'package:hemantenterprisesstaff/routes/app_routes.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,18 +25,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<dynamic> brandsList = [];
+  List<Banners>? _brandsList = [];
+  BrandsListModel? brandsListModel;
 
   @override
   void initState() {
     super.initState();
     fetchBrandData();
   }
-  
+
   Future<void> fetchBrandData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('access_token');
-    final url = 'https://hemanthapp.whysocial.in/public/brands/getbrandlist';
+    // final refreshToken = prefs.getString('refresh_token');
+
+    if (token == null) {
+      Fluttertoast.showToast(msg: "Token not found. Please log in again.");
+      return;
+    }
+
+    String apiUrl = '${ApiConstants.baseUrl}${ApiConstants.brandListUrl}';
 
     Map<String, String> headers = {
       "Content-Type": "application/json",
@@ -41,21 +52,29 @@ class _HomeScreenState extends State<HomeScreen> {
     };
 
     try {
-      final response = await http.get(Uri.parse(url), headers: headers);
+      print("Fetching brand data from: $apiUrl");
+      print("Headers: $headers");
+
+      final response = await http.get(Uri.parse(apiUrl), headers: headers);
+
+      print("Response status code: ${response.statusCode}");
+      print("Response body: ${response.body}");
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
-        print(responseData.toString());
+
+        brandsListModel = BrandsListModel.fromJson(responseData);
 
         setState(() {
-          brandsList = responseData['banners'] ?? [];
-          
+          _brandsList = brandsListModel?.banners ?? []; // Ensure it's not null
         });
-        print('${brandsList.toString()}>>>>>>>>>>>>><<<<<<<<<<<<<');
+
+        // Store data in Provider
       } else {
         Fluttertoast.showToast(msg: "Data not found");
       }
     } catch (e) {
+      print("Error fetching brand data: ${e.toString()}");
       Fluttertoast.showToast(msg: "Error: ${e.toString()}");
     }
   }
@@ -110,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: 2.h),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: brandsList.isEmpty
+                      child: _brandsList == null
                           ? Center(
                               child:
                                   CircularProgressIndicator()) // Show loading indicator
@@ -125,19 +144,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                     crossAxisSpacing: 8,
                                     mainAxisSpacing: 8,
                                   ),
-                                  itemCount: brandsList.length,
+                                  itemCount: _brandsList!.length,
                                   itemBuilder: (context, index) {
-                                    String brandImg = brandsList[index]['brand_img'] ?? '';
-                                    String brandName = brandsList[index]['brand_name'] ?? '';
-                                    String brandDescription = brandsList[index]['brand_description'] ?? '';
+                                    Banners brand = _brandsList![index];
                                     return GestureDetector(
                                       onTap: () {
-                                        print('Brand tapped: ${brandsList[index]['brand_name']}');
-                                        Get.toNamed(AppRoutes.category, arguments: {
-                                          'brandImg' : brandImg,
-                                          'brandName' : brandName,
-                                          'brandDescription' : brandDescription,
-                                        });
+                                        final brandsProvider =
+                                            Provider.of<BrandsProvider>(context,
+                                                listen: false);
+                                        brandsProvider.setBrandDetails(
+                                            brand.brandId.toString(),
+                                            brand.brandImg.toString(),
+                                            brand.brandName.toString(),
+                                            brand.brandDescription.toString());
+
+                                        Get.toNamed(AppRoutes.category);
+                                        
+                                        print('Brand tapped: ${brand.brandName}');
+                                        print(brand.brandId);
+                                        print(brand.brandImg);
+                                        print(brand.brandName);
                                       },
                                       child: Container(
                                         height: 100,
@@ -149,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Transform.scale(
                                           scale: 0.5,
                                           child: Image.network(
-                                            '${brandImgUrl}${brandImg}',
+                                            '${brandImgUrl}${brand.brandImg}',
                                             height: 5,
                                             width: 5,
                                             errorBuilder:

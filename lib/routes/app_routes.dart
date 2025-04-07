@@ -1,14 +1,13 @@
 import 'package:get/get.dart';
 import 'package:hemantenterprisesstaff/bottomnavigation/bottomnavigation.dart';
 import 'package:hemantenterprisesstaff/views/aboutUs.dart';
-import 'package:hemantenterprisesstaff/views/brands/category.dart';
-import 'package:hemantenterprisesstaff/views/brands/model.dart';
-import 'package:hemantenterprisesstaff/views/authentication/createaccount.dart';
+import 'package:hemantenterprisesstaff/views/authentication/loginauth.dart';
+import 'package:hemantenterprisesstaff/views/brands/categories.dart';
+import 'package:hemantenterprisesstaff/views/brands/subCategory.dart';
 import 'package:hemantenterprisesstaff/views/topbar/customerquotes.dart';
 import 'package:hemantenterprisesstaff/views/brands/home.dart';
 import 'package:hemantenterprisesstaff/views/brands/listingpage.dart';
 import 'package:hemantenterprisesstaff/views/authentication/login.dart';
-import 'package:hemantenterprisesstaff/views/authentication/otp.dart';
 import 'package:hemantenterprisesstaff/views/cart/quote.dart';
 import 'package:hemantenterprisesstaff/views/topbar/searchresult.dart';
 import 'package:hemantenterprisesstaff/views/splash/splashcontext.dart';
@@ -18,15 +17,14 @@ import 'package:hemantenterprisesstaff/views/cart/thankyou.dart';
 import 'package:hemantenterprisesstaff/views/topbar/tollfree.dart';
 
 
-
 class AppRoutes {
   static const splash = '/splash';
   static const next = '/next';
   static const createAccount = '/createAccount';
   static const login = '/login';
-  static const verificationCode = '/verificationCode';
+  static const loginVerification = '/loginVerification';
   static const home = '/home';
-  static const brandDetails = '/brandDetails';
+  static const productDetail = '/productDetail';
   static const category = '/category';
   static const subCategory = '/subCategory';
   static const listingPage = '/listingPage';
@@ -47,32 +45,32 @@ class AppRoutes {
       name: next,
       page: () => SplashContext(),
     ),
-    GetPage(
-     name: createAccount,
-     page: () => CreateAccountScreen(),
-    ),
+    // GetPage(
+    //  name: createAccount,
+    //  page: () => CreateAccountScreen(),
+    // ),
     GetPage(
       name: login, 
       page: () => LoginScreen(),
     ),
     GetPage(
-      name: verificationCode, 
-      page: () => VerificationCodeScreen()
+      name: loginVerification, 
+      page: () => LoginVerification()
       ),
     GetPage(
       name: home, 
       page: () => HomeScreen()
       ),
     GetPage(
-      name: brandDetails, 
-      page: () => CategoryScreen()
+      name: subCategory, 
+      page: () => SubCategoryScreen()
       ),   
     GetPage(
       name: category, 
-      page: () => ModelScreen()
+      page: () => CategoryScreen()
       ),   
     GetPage(
-      name: subCategory, 
+      name: productDetail, 
       page: () => ProductScreen()
       ),
     GetPage(
